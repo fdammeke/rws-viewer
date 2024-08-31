@@ -1,0 +1,82 @@
+{{ $id := printf "plotly2-%02d" .Ordinal }}
+<div id="{{ $id }}"></div>
+<script>
+  var rawData = {{ .Inner | safeJS }};
+  var source = rawData.source
+  var xField = rawData.xfield;
+  var yField = rawData.yfield;
+
+  var selectorOptions = {
+    buttons: [{
+      step: 'hour',
+      stepmode: 'backward',
+      count: 1,
+      label: '1h'
+    }, {
+      step: 'hour',
+      stepmode: 'backward',
+      count: 12,
+      label: '12h'
+    }, {
+      step: 'day',
+      stepmode: 'backward',
+      count: 1,
+      label: '1d'
+    }, {
+      step: 'day',
+      stepmode: 'backward',
+      count: 2,
+      label: '2d'
+    }, {
+      step: 'all',
+    }],
+  };
+
+  d3.csv(source, function (err, rawData) {
+    if (err) throw err;
+
+    var data = prepData(rawData);
+    var layout = {
+      xaxis: {
+        rangeselector: selectorOptions,
+        rangeslider: {}
+      },
+      yaxis: {
+        fixedrange: true
+      },
+      showlegend: true
+    };
+
+    Plotly.newPlot(document.getElementById({{ $id }}), data, layout);
+  });
+
+  function prepData(rawData) {
+    var x = [];
+    var y = [];
+
+    rawData.forEach(function (datum, i) {
+
+      x.push(new Date(datum[xField]));
+      y.push(datum[yField]);
+    });
+
+    return [{
+      name: 'knots',
+      mode: 'scatter',
+      x: x,
+      y: y,
+      colorscale: [
+        ['0.0', 'rgb(165,0,38)'],
+        ['0.111111111111', 'rgb(215,48,39)'],
+        ['0.222222222222', 'rgb(244,109,67)'],
+        ['0.333333333333', 'rgb(253,174,97)'],
+        ['0.444444444444', 'rgb(254,224,144)'],
+        ['0.555555555556', 'rgb(224,243,248)'],
+        ['0.666666666667', 'rgb(171,217,233)'],
+        ['0.777777777778', 'rgb(116,173,209)'],
+        ['0.888888888889', 'rgb(69,117,180)'],
+        ['1.0', 'rgb(49,54,149)']
+      ],
+    }];
+  }
+</script>

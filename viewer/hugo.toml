@@ -1,0 +1,55 @@
+baseURL = "/"
+theme = "whisper"
+languageCode = "en-us"
+title = "Getijden"
+
+pygmentsCodeFences = true
+pygmentsCodefencesGuessSyntax = true
+pygmentsUseClasses = true
+
+[module]
+  [module.hugoVersion]
+    extended = true
+    min = "0.133.0"
+
+# Controls how many words are printed in the content summary on the docs homepage.
+# See https://gohugo.io/content-management/summaries/
+summaryLength = 30
+
+[[menu.main]]
+    name = "Home"
+    url = "/"
+    weight = 1
+
+[[menu.main]]
+    name = "Getijden"
+    url = "/getijden/"
+    weight = 2
+
+[params]
+  google_analytics_id=""
+  homepage_button_link = '/getijden'
+  homepage_button_text = 'Check de getijden'
+  homepage_intro = 'Rijkswaterstaat '
+  homepage_image = '/images/terminal.gif'
+
+  ## You can enable to add anchor links to header elements
+  # enable_anchor_link = true
+
+  [params.homepage_meta_tags]
+    meta_description = "Informatie over de getijden, stroming, water hoogte"
+    meta_og_title = "Getijden"
+    meta_og_type = "website"
+    meta_og_url = "https://god.therion.be/getijden/"
+    meta_og_image = "https://raw.githubusercontent.com/JugglerX/hugo-whisper-theme/master/images/tn.png"
+    meta_og_description = "Informatie over de getijden, stroming, water hoogte built with Hugo."
+    meta_twitter_card = "summary"
+    meta_twitter_site = "@zerostaticio"
+    meta_twitter_creator = "@zerostaticio"
+
+  [params.logo]
+      mobile = "/images/logo-mobile.svg"
+      standard  = "/images/logo.svg"
+
+  [params.footer]
+    copyright_text = 'Licensed under <a class="zerostatic" href="https://github.com/fdammeke/rws-viewer/blob/master/LICENSE">MIT</a>, datasource <a class="zerostatic" href="https://rijkswaterstaatdata.nl/@165342/verantwoording/">rijkswaterstaatdata.nl</a>'
